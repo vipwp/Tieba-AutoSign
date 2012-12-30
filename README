@@ -1,0 +1,18 @@
+用法: sign.py [options]
+
+参数:
+  -h, --help            show this help message and exit
+  -u username , --usr=username
+                        username
+  -p password , --psw=password
+                        password
+  -f forumname, --frm=forumname
+                        贴吧名(只签到本贴吧)
+  -b [BASE64] , --b64=[BASE64]
+                        base64 加密的密码
+  -r [ROT_13] , --r13=[ROT_13]
+                        rotate13 加密的密码
+						
+注:
+  直接运行会提示输入用户名和密码。
+  -p 优先级大于 -b 和 -r.
