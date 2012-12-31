@@ -101,26 +101,6 @@ class TieBa:
 #    else:
 #      print  ('Successful','You are the %dth Sign'%res['data']['finfo']['current_rank_info']['sign_count'])
 
-  def getContent(self):
-    contents=['houhou','kankan','heihei']
-    return random.sample(contents,1)[0]
-
-  def reply(self,tid):
-    if tid.__class__==[].__class__:
-      for i in tid:
-        self.reply(i)
-      return
-    
-    reply_url="http://tieba.baidu.com/f/commit/post/add"
-    data={
-        'kw':self.kw,'ie':'utf-8','rich_text':'1','anonymous':'0',
-        'content':self.getContent(),
-        'fid':self.fid,
-        'tid':tid
-        }
-    data['tbs']=self.getTbs(tid)
-    fd = self.urlopen(reply_url,data)
-
   def login(self):
     def post():
       url = 'https://passport.baidu.com/v2/api/?login'
@@ -139,11 +119,6 @@ class TieBa:
     post()
 
     return True
-
-  def getTopics(self):
-    page=self.urlopen(self.tb_url)
-    tids=re.findall('<a href="/p/(\d+)" target="_blank" class="\w+">.+</a>',page).decode("gbk").encode("u8")
-    return tids
 
   def enter(self,tb_url):
     if tb_url.startswith('http://'):
