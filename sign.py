@@ -64,7 +64,7 @@ class TieBa:
     return tbs
 
 
-  def sign(self):
+  def sign(self): #手机版签到
     sign_url="http://wapp.baidu.com/f/q/sign"
     data={'kw':self.kw}
     data['tbs']=self.getTbs()
@@ -86,7 +86,8 @@ class TieBa:
     parse.feed(html)
     parse.close()
     print "".join(result)
-
+	
+#  这一段注释是电脑版签到代码
 #  def sign(self):
 #    sign_url="http://tieba.baidu.com/sign/add"
 #    data={'ie':'utf-8','kw':self.kw}
@@ -137,6 +138,7 @@ class TieBa:
 
 
 def main():
+#   如果要指定用户名那就从这里开始注释
     parser = optparse.OptionParser()  
     parser.add_option("-u", "--usr", dest="u",  
                   help="username", metavar="username ")  
@@ -164,7 +166,7 @@ def main():
         else:
           print '输入密码: '
           p=getpass.getpass('')
-    #just comment two lines and uncomment next two
+#   注释到这里为止
     #u='YOUR_USERNAME'
     #p='PASSWORD'
     print u.decode("u8").encode("gbk")+' 开始签到'
