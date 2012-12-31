@@ -1,17 +1,7 @@
 #!/usr/bin/env python
 #coding=gbk
 #email:jeos@live.fi
-import urllib
-import urllib2
-import cookielib
-import json
-import re,time,os,random,sys,base64
-import getpass
-import optparse
-try:
-  from accounts import accounts_here
-except:
-  pass
+import urllib,urllib2,cookielib,json,re,time,os,random,sys,base64,getpass,optparse
 
 class TieBa:
   def __init__(self,username,password):
@@ -40,17 +30,15 @@ class TieBa:
           args[1]['tbs']=self.getTbs()
       self.urlopen(*args)
 
-
   def getFid(self):
     page = self.urlopen(self.tb_url)
     fid=re.findall("fid:'(\d+)'",page)
     if fid==[]:
-      print ('Error = = Retry in 1s')
+      print ('发生错误, 1秒后重试')
       time.sleep(1)
       return self.getFid()
     else:
       return fid[0]
-
 
   def getTbs(self,tid=None):
     if tid:
@@ -60,9 +48,7 @@ class TieBa:
     else:
       page = self.urlopen(self.tb_url)
       tbs=re.findall('PageData.tbs = "(\w+)"',page)[0]
-
     return tbs
-
 
   def sign(self): #手机版签到
     sign_url="http://wapp.baidu.com/f/q/sign"
@@ -73,9 +59,6 @@ class TieBa:
       tbk = re.findall('</a>(.+)<div class="bc">',res)[0]
     except:
       tbk = "签到异常"
-	  
-    #print res
-   
     from HTMLParser import HTMLParser
     html=tbk
     html=html.strip()
@@ -106,7 +89,6 @@ class TieBa:
     def post():
       url = 'https://passport.baidu.com/v2/api/?login'
       page = self.urlopen(url,data)
-
     data={"username":self.username,"password":self.password,"verifycode":'',
         "mem_pass":"on","charset":"GBK","isPhone":"false","index":"0",
         "safeflg":"0","staticpage":"http://tieba.baidu.com/tb/v2Jump.html",
@@ -118,7 +100,6 @@ class TieBa:
     token_page=self.urlopen(token_url)
     data["token"]=re.findall("token:'(\w+)'" ,token_page)[0]
     post()
-
     return True
 
   def enter(self,tb_url):
@@ -135,7 +116,6 @@ class TieBa:
   def getTibBas(self):
     page=self.urlopen('http://tieba.baidu.com/')
     return re.findall('<a class="j_ba_l.+" forum-id="\d+" forum=".+" forum-type="\d+" forum-like="1" href="(.+)" target="_blank"',page)
-
 
 def main():
 #   如果要指定用户名那就从这里开始注释
